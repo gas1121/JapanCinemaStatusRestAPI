@@ -1,5 +1,8 @@
 buildscript {
     repositories {
+        // aliyun mirror for maven
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        jcenter()
         mavenCentral()
     }
     dependencies {
@@ -18,6 +21,9 @@ jar {
 }
 
 repositories {
+    // aliyun mirror for maven
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    jcenter()
     mavenCentral()
 }
 

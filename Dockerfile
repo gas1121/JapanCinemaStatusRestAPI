@@ -1,4 +1,8 @@
+# docker container for application, include java, gradle and maven
 FROM library/java:alpine
+
+# use ustc mirrors
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
 
 # install gradle and maven
 RUN mkdir /opt
@@ -25,10 +29,17 @@ RUN set -x \
 
 WORKDIR /opt/maven
 RUN set -x \
-  && wget --quiet http://mirror.bit.edu.cn/apache/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.zip \
+  && wget --quiet http://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.zip \
   && unzip apache-maven-${MAVEN_VERSION}-bin.zip \
   && rm apache-maven-${MAVEN_VERSION}-bin.zip
 
 RUN apk del wget
 
 RUN apk update && apk add bash libstdc++ && rm -rf /var/cache/apk/*
+
+# mirror for maven
+COPY docker-files/maven/settings.xml /usr/share/maven/conf/settings.xml
+
+# build and run application
+ENTRYPOINT ["/bin/sh", "-c"]
+CMD ["gradle build && java -jar build/libs/gs-spring-boot-docker-0.1.0.jar"]
