@@ -9,3 +9,8 @@ services:
     ports: 
       - "8080:8080"
     working_dir: /app
+    networks:
+      - japancinemastatusspider_default
+networks:
+  japancinemastatusspider_default:
+    external: true
