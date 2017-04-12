@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "showings")
-public class Showings {
+public class Showing {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,4 +33,12 @@ public class Showings {
     @Column(name = "record_time")
     private String recordTime;
     private String source;
+
+    @Override
+    public  String toString() {
+        return String.format(
+                "Showing[id=%d, title='%s', cinemaName='%s]",
+                id, title, cinemaName
+        );
+    }
 }

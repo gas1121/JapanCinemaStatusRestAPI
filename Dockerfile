@@ -40,6 +40,11 @@ RUN apk update && apk add bash libstdc++ && rm -rf /var/cache/apk/*
 # mirror for maven
 COPY docker-files/maven/settings.xml /usr/share/maven/conf/settings.xml
 
+# run maven to generate cache
+COPY . /app
+WORKDIR /app
+RUN mvn dependency:go-offline
+
 # build and run application
 ENTRYPOINT ["/bin/sh", "-c"]
-CMD ["gradle build && java -jar build/libs/gs-spring-boot-docker-0.1.0.jar"]
+CMD ["gradle bootRun"]

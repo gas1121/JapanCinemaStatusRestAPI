@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ShowingsRepository extends ReadOnlyRepository<Showings, Long> {
+public interface ShowingRepository extends ReadOnlyRepository<Showing, Long> {
 
-    List<Showings> findByTitle(@Param("title") String title);
+    List<Showing> findByTitle(@Param("title") String title);
 }
