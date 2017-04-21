@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.lang.reflect.Field;
+import java.math.BigInteger;
+import java.util.List;
+
 @RestController
 public class MainController {
 
@@ -20,11 +24,19 @@ public class MainController {
     @Autowired
     private ShowingRepository showingRepository;
 
-    @GetMapping(path="/api/showings", produces = CONTENT_TYPE)
+    @GetMapping(path="/api/showing", produces = CONTENT_TYPE)
     public @ResponseBody String api() {
-        logger.info("get /api/showings");
-        Iterable<Showing> result = showingRepository.findAll();
-        logger.info(result.toString());
-        return result.toString();
+        logger.info("get /api/showing");
+        Iterable<Object[]> result = showingRepository.getAllData();
+        StringBuilder output = new StringBuilder();
+        for (Object[] curr: result) {
+            for (Object column: curr) {
+                output.append(column.toString());
+                output.append(" ");
+            }
+            output.append("\n");
+        }
+        logger.info(output.toString());
+        return output.toString();
     }
 }

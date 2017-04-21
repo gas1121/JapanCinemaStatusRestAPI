@@ -4,7 +4,7 @@ package com.gas1121.japancinemastatusrestapi.persist.showings;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "showings")
+@Table(name = "showing")
 public class Showing {
 
     @Id
@@ -22,16 +22,10 @@ public class Showing {
     @Column(name = "cinema_site")
     private String cinemaSite;
     private String screen;
-    @Column(name = "book_status")
-    private String bookStatus;
     @Column(name = "seat_type")
     private String seatType;
-    @Column(name = "book_seat_count")
-    private String bookSeatCount;
     @Column(name = "total_seat_count")
     private String totalSeatCount;
-    @Column(name = "record_time")
-    private String recordTime;
     private String source;
 
     @Override
