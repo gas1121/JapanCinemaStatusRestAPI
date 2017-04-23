@@ -14,11 +14,6 @@ public class Application {
 
     private static final Logger log = LoggerFactory.getLogger(Application.class);
 
-    @RequestMapping("/")
-    public String home() {
-        return "Hello Docker World\n";
-    }
-
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }

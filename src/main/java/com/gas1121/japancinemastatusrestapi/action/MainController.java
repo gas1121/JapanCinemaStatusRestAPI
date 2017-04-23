@@ -1,6 +1,5 @@
 package com.gas1121.japancinemastatusrestapi.action;
 
-import com.gas1121.japancinemastatusrestapi.persist.showings.Showing;
 import com.gas1121.japancinemastatusrestapi.persist.showings.ShowingRepository;
 
 import org.slf4j.Logger;
@@ -9,10 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.lang.reflect.Field;
-import java.math.BigInteger;
-import java.util.List;
 
 @RestController
 public class MainController {
