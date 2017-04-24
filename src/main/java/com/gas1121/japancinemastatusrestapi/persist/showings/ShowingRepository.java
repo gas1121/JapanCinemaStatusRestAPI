@@ -16,4 +16,8 @@ public interface ShowingRepository extends ReadOnlyRepository<Showing, Long> {
     @Query(value = "select title,sum(total_seat_count) as total from showing " +
             "group by title", nativeQuery = true)
     List<Object[]> getAllData();
+
+    @Query(value = "select title, sum(total_seat_count) as total, cinema_name " +
+            "from showing group by title,cinema_name", nativeQuery = true)
+    List<Object[]> getAllDataDividedByCinemaName();
 }

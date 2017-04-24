@@ -2,12 +2,16 @@ package com.gas1121.japancinemastatusrestapi.action;
 
 import com.gas1121.japancinemastatusrestapi.persist.showings.ShowingRepository;
 
+import net.minidev.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import net.minidev.json.JSONObject;
+import net.minidev.json.JSONArray;
 
 @RestController
 public class MainController {
@@ -19,19 +23,36 @@ public class MainController {
     @Autowired
     private ShowingRepository showingRepository;
 
-    @GetMapping(path="/api/showing", produces = CONTENT_TYPE)
-    public @ResponseBody String api() {
-        logger.info("get /api/showing");
+    @GetMapping(path="/api/showing/seats", produces = CONTENT_TYPE)
+    public @ResponseBody String showing() {
+        logger.info("get /api/showing/seats");
         Iterable<Object[]> result = showingRepository.getAllData();
-        StringBuilder output = new StringBuilder();
+        JSONObject output = new JSONObject();
+        JSONArray movies = new JSONArray();
         for (Object[] curr: result) {
-            for (Object column: curr) {
-                output.append(column.toString());
-                output.append(" ");
-            }
-            output.append("\n");
+            JSONObject movie = new JSONObject();
+            movie.put("title", curr[0].toString());
+            movie.put("total", curr[1].toString());
+            movies.add(movie);
         }
-        logger.info(output.toString());
+        output.put("movies", movies);
+        return output.toString();
+    }
+
+    @GetMapping(path="/api/showing/seats/cinema", produces = CONTENT_TYPE)
+    public @ResponseBody String cinema() {
+        logger.info("get /api/showing/seats/cinema");
+        Iterable<Object[]> result = showingRepository.getAllDataDividedByCinemaName();
+        JSONObject output = new JSONObject();
+        JSONArray movies = new JSONArray();
+        for (Object[] curr: result) {
+            JSONObject movie = new JSONObject();
+            movie.put("title", curr[0].toString());
+            movie.put("cinema_name", curr[2].toString());
+            movie.put("total", curr[1].toString());
+            movies.add(movie);
+        }
+        output.put("movies", movies);
         return output.toString();
     }
 }
