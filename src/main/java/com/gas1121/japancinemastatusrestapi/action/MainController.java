@@ -1,6 +1,8 @@
 package com.gas1121.japancinemastatusrestapi.action;
 
-import com.gas1121.japancinemastatusrestapi.persist.showings.ShowingRepository;
+import com.gas1121.japancinemastatusrestapi.persist.movie.Movie;
+import com.gas1121.japancinemastatusrestapi.persist.movie.MovieRepository;
+import com.gas1121.japancinemastatusrestapi.persist.showing.ShowingRepository;
 
 import net.minidev.json.JSONArray;
 import org.slf4j.Logger;
@@ -11,7 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import net.minidev.json.JSONObject;
-import net.minidev.json.JSONArray;
+
+import java.util.List;
 
 @RestController
 public class MainController {
@@ -22,6 +25,25 @@ public class MainController {
 
     @Autowired
     private ShowingRepository showingRepository;
+
+    @Autowired
+    private MovieRepository movieRepository;
+
+    @GetMapping(path="/api/movie", produces = CONTENT_TYPE)
+    public  @ResponseBody String movie() {
+        logger.info("get /api/movie");
+        List<Movie> result = movieRepository.findAll();
+        JSONObject output = new JSONObject();
+        JSONArray movies = new JSONArray();
+        for (Movie curr: result) {
+            JSONObject movie = new JSONObject();
+            movie.put("id", curr.getId());
+            movie.put("title", curr.getTitle());
+            movies.add(movie);
+        }
+        output.put("movies", movies);
+        return output.toString();
+    }
 
     @GetMapping(path="/api/showing/seats", produces = CONTENT_TYPE)
     public @ResponseBody String showing() {

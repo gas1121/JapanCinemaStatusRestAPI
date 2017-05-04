@@ -1,4 +1,4 @@
-package com.gas1121.japancinemastatusrestapi.persist.showings;
+package com.gas1121.japancinemastatusrestapi.persist.showing;
 
 
 import com.gas1121.japancinemastatusrestapi.persist.ReadOnlyRepository;
