@@ -1,6 +1,6 @@
 version: "2"
 services:
-  rest-api:
+  japan-cinema-status-rest-api:
     build:
       context: .
       dockerfile: Dockerfile

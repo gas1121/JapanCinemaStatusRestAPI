@@ -29,9 +29,9 @@ public class MainController {
     @Autowired
     private MovieRepository movieRepository;
 
-    @GetMapping(path="/api/movie", produces = CONTENT_TYPE)
+    @GetMapping(path="/movie", produces = CONTENT_TYPE)
     public  @ResponseBody String movie() {
-        logger.info("get /api/movie");
+        logger.info("get /movie");
         List<Movie> result = movieRepository.findAll();
         JSONObject output = new JSONObject();
         JSONArray movies = new JSONArray();
@@ -45,9 +45,9 @@ public class MainController {
         return output.toString();
     }
 
-    @GetMapping(path="/api/showing/seats", produces = CONTENT_TYPE)
+    @GetMapping(path="/showing/seats", produces = CONTENT_TYPE)
     public @ResponseBody String showing() {
-        logger.info("get /api/showing/seats");
+        logger.info("get /showing/seats");
         Iterable<Object[]> result = showingRepository.getAllData();
         JSONObject output = new JSONObject();
         JSONArray movies = new JSONArray();
@@ -61,9 +61,9 @@ public class MainController {
         return output.toString();
     }
 
-    @GetMapping(path="/api/showing/seats/cinema", produces = CONTENT_TYPE)
+    @GetMapping(path="/showing/seats/cinema", produces = CONTENT_TYPE)
     public @ResponseBody String cinema() {
-        logger.info("get /api/showing/seats/cinema");
+        logger.info("get /showing/seats/cinema");
         Iterable<Object[]> result = showingRepository.getAllDataDividedByCinemaName();
         JSONObject output = new JSONObject();
         JSONArray movies = new JSONArray();
