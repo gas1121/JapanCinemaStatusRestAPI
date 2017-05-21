@@ -47,4 +47,4 @@ RUN mvn dependency:go-offline
 
 # build and run application
 ENTRYPOINT ["/bin/sh", "-c"]
-CMD ["gradle bootRun"]
+CMD ["mvn spring-boot:run"]
